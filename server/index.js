@@ -17,8 +17,21 @@ app.get("/api/weather/:latitude/:longitude", (req, res) => {
         .catch(error => {
             console.log(error);
         });
-
 });
+
+app.get("/api/weather/:city", (req, res) => {
+    var city = req.params.city;
+    var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.API_KEY}`;
+    fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+            res.send({ data });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+});
+
 
 
 app.listen(PORT, () => {
