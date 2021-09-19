@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 
 const PORT = process.env.PORT || 3001;
 
-const app = express();
+export const app = express();
 
 app.get("/api/weather/:latitude/:longitude", (req, res) => {
     var latitude = req.params.latitude;
@@ -34,8 +34,7 @@ app.get("/api/weather/:city", (req, res) => {
         });
 });
 
-
-
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
+
