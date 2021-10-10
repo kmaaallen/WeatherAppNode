@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "start": "node server/index.js",
-    "build": ""
+    "start": "node server/index.js"
   },
   "keywords": [
     "weather"
