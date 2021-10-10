@@ -7,6 +7,8 @@ const PORT = process.env.PORT || 3001;
 
 export const app = express();
 
+app.use('/', express.static(path.join(__dirname, 'public')))
+
 app.get("/api/weather/:latitude/:longitude", (req, res) => {
     var latitude = req.params.latitude;
     var longitude = req.params.longitude;
