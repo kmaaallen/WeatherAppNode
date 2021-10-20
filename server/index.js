@@ -2,11 +2,16 @@ import dotenv from 'dotenv';
 dotenv.config()
 import express from 'express';
 import fetch from 'node-fetch';
+import path from 'path';
 
 const PORT = process.env.PORT || 3001;
 var currentWeather, lat, long;
 
 export const app = express();
+
+app.get("/", function (req, res) {
+    res.sendFile(path.resolve('server/index.html'));
+});
 
 app.get("/api/weather/:latitude/:longitude", (req, res) => {
     var latitude = req.params.latitude;
@@ -27,14 +32,6 @@ app.get("/api/weather/:latitude/:longitude", (req, res) => {
     }).catch(function (error) {
         console.log(error);
     });
-    /*fetch(currentWeatherApiUrl)
-        .then(res => res.json())
-        .then(data => {
-            res.send({ data });
-        })
-        .catch(error => {
-            console.log(error);
-        });*/
 });
 
 app.get("/api/weather/:city", (req, res) => {
@@ -60,4 +57,3 @@ app.get("/api/weather/:city", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
-
