@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Node backend for WeatherApp project",
   "main": "index.js",
+  "engines": {
+    "node": "v16.2.0"
+  },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "start": "node server/index.js"
