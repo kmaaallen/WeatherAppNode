@@ -3,17 +3,25 @@ dotenv.config()
 import express from 'express';
 import fetch from 'node-fetch';
 import path from 'path';
+import cors from 'cors';
 
 const PORT = process.env.PORT || 3001;
 var currentWeather, lat, long;
 
+var corsOptions = {
+    origin: 'https://react-weather-app-front-end.herokuapp.com/',
+    optionsSuccessStatus: 200
+}
+
 export const app = express();
 
-app.get("/", function (req, res) {
+app.use(cors())
+
+app.get("/", cors(corsOptions), function (req, res) {
     res.sendFile(path.resolve('server/index.html'));
 });
 
-app.get("/api/weather/:latitude/:longitude", (req, res) => {
+app.get("/api/weather/:latitude/:longitude", cors(corsOptions), (req, res) => {
     var latitude = req.params.latitude;
     var longitude = req.params.longitude;
     var currentWeatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${process.env.API_KEY}`;
@@ -30,11 +38,10 @@ app.get("/api/weather/:latitude/:longitude", (req, res) => {
     }).then(function (data) {
         res.send({ weatherNow: data[0], forecast: data[1] });
     }).catch(function (error) {
-        console.log(error);
     });
 });
 
-app.get("/api/weather/:city", (req, res) => {
+app.get("/api/weather/:city", cors(corsOptions), (req, res) => {
     var city = req.params.city;
     var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.API_KEY}`;
     fetch(apiUrl)
