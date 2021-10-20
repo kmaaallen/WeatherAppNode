@@ -8,8 +8,9 @@ import cors from 'cors';
 const PORT = process.env.PORT || 3001;
 var currentWeather, lat, long;
 
+
 var corsOptions = {
-    origin: 'https://react-weather-app-front-end.herokuapp.com/',
+    origin: 'https://react-weather-app-front-end.herokuapp.com',
     optionsSuccessStatus: 200
 }
 
