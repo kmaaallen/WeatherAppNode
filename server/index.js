@@ -2,14 +2,10 @@ import dotenv from 'dotenv';
 dotenv.config()
 import express from 'express';
 import fetch from 'node-fetch';
-import path from 'path';
 
-const __dirname = path.resolve();
 const PORT = process.env.PORT || 3001;
 
 export const app = express();
-
-app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.get("/api/weather/:latitude/:longitude", (req, res) => {
     var latitude = req.params.latitude;
