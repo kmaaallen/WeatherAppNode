@@ -39,6 +39,7 @@ app.get("/api/weather/:latitude/:longitude", cors(corsOptions), (req, res) => {
     }).then(function (data) {
         res.send({ weatherNow: data[0], forecast: data[1] });
     }).catch(function (error) {
+        console.log(error);
     });
 });
 
@@ -47,12 +48,16 @@ app.get("/api/weather/:city", cors(corsOptions), (req, res) => {
     var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.API_KEY}`;
     fetch(apiUrl)
         .then(res => res.json())
-        .then(function (data) {
+        .then(data => {
             currentWeather = data;
-            lat = currentWeather.coord.lat;
-            long = currentWeather.coord.lon;
-            var forecastApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&units=metric&appid=${process.env.API_KEY}`;
-            return fetch(forecastApiUrl)
+            if (currentWeather.cod == '404') {
+                return fetch(apiUrl);
+            } else {
+                lat = currentWeather.coord.lat;
+                long = currentWeather.coord.lon;
+                var forecastApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,minutely,hourly,alerts&units=metric&appid=${process.env.API_KEY}`;
+                return fetch(forecastApiUrl)
+            }
         }).then(res => res.json())
         .then(data => {
             res.send({ weatherNow: currentWeather, forecast: data });
