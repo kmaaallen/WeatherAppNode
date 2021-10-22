@@ -1,10 +1,10 @@
 # WeatherAppNode - backend for WeatherApp to display local and searched weather
-WeatherAppNode is a Node / Express server acting as an API to return current weather data from OpenWeatherMap based on latitude/longitude or city name provided.
+WeatherAppNode is a Node / Express server acting as an API to return current and forecasted weather data from OpenWeatherMap based on latitude/longitude or city name provided.
 
 This repo is designed to be used in conjunction with WeatherApp project - front end repo [here](https://github.com/kmaaallen/WeatherApp) or another front-end project utilising current weather data.
 
 # Description
-WeatherAppNode was built in conjunction with a React front-end project, [WeatherApp](https://github.com/kmaaallen/WeatherApp), that displays the current weather to the user.
+WeatherAppNode was built in conjunction with a React front-end project, [WeatherApp](https://github.com/kmaaallen/WeatherApp), that displays the current and forecasted weather to the user.
 
 It is a Node and Express server used as an API that fetches current weather information using the [OpenWeatherMap API] (https://openweathermap.org/api) based on provided latitude/longitude or provided city. With the React project displaying that information.
 
@@ -29,9 +29,12 @@ In your project create a .env file at the top level and add your API key:
 
 <code>
 API_KEY: key
+ALLOWED_ORIGIN: url for front-end (should not be necesscary to run in development with local host)
 </code>
 
 Make sure you create add the .env file to gitignore.
+
+Run <code>$npm install</code> to install required packages
 
 ## Run the project
 
@@ -54,18 +57,18 @@ To get weather based on city name use the following API call:
 <code>fetch(`/api/weather/${city}`)</code>
 
 # How to deploy project
-TO DO - Deploy project to Heroku
+This project is deployed on Heroku as a standalone app. 
+Follow these steps to [create an app on Heroku and link to repository](https://devcenter.heroku.com/articles/git).
+In the settings for this app set two environment variables:
+API_KEY = your open weather api key
+ALLOWED_ORIGIN = where you will be calling this API from (for example your front-end project url)
 
-# Technologies
-Node
-Express
-DotEnv
-Node-Fetch
-OpenWeatherMap
-Jest (?)
+# Technologies / Packages
+[Node](https://nodejs.org)
+[Express](https://expressjs.com/) - Node.js web application framework
+[OpenWeatherMap]((https://openweathermap.org) - free api for weather data
+[Jest](https://jestjs.io/) - Testing framework
 
 # Testing
-TO DO
-Jest
-How to run test
-Check coverage ?
+This project contains unit tests using Jest and Supertest to test api calls.
+To run all tests: <code>$ npm run test </code>
