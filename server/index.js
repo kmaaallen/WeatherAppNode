@@ -10,7 +10,7 @@ var currentWeather, lat, long;
 
 
 var corsOptions = {
-    origin: 'https://react-weather-app-front-end.herokuapp.com',
+    origin: process.env.ALLOWED_ORIGIN,
     optionsSuccessStatus: 200
 }
 
